@@ -4,26 +4,12 @@ units = {
     # base unit
     "meter": 0,
     "gram": 0,
-    "liter": 0,
     "ton": 0,
     "second": 0,
     "ampere": 0,
-    "candela": 0,
-    "mole": 0,
-    "hertz": 0,
-    "newton": 0,
-    "pascal": 0,
     "watt": 0,
     "volt": 0,
-    "farad": 0,
     "ohm": 0,
-    "siemens": 0,
-    "weber": 0,
-    "tesla": 0,
-    "henry": 0,
-    "lumen": 0,
-    "lux": 0,
-    "gallon": 0,
   
   # prefix  
     "quetta": 30,
@@ -84,4 +70,3 @@ if newdefault_unit is not None and newnew_unit is not None:
     print(scinonum[0],"x 10 ^",(scinonum[1] + (newdefault_unit - newnew_unit)))
 else:
     print("Invalid unit selected.")
-    
