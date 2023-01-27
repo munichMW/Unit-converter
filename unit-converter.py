@@ -24,10 +24,11 @@ units = {
     "atto": -18,
     "zepto": -21,
     "yocto": -24,
-    "ronto": -27,	
+    "ronto": -27,
     "quecto": -30
 
 }
+
 
 def checki(question):
     prompt = input(question)
@@ -38,12 +39,14 @@ def checki(question):
             break
     return split_word
 
+
 def sci_notation(num):
-  power = 0
-  while abs(num) >= 10:
-    num /= 10
-    power += 1
-  return num,power
+    power = 0
+    while abs(num) >= 10:
+        num /= 10
+        power += 1
+    return num, power
+
 
 numb = float(input("amount: "))
 default_unit = checki("default_unit: ")
@@ -53,9 +56,10 @@ newdefault_unit = units.get(default_unit[0], None)
 newnew_unit = units.get(new_unit[0], None)
 
 if newdefault_unit is not None and newnew_unit is not None:
-    calcu = numb * math.pow(10.00000000000,(newdefault_unit - newnew_unit))
+    calcu = numb * math.pow(10, (newdefault_unit - newnew_unit))
     scinonum = sci_notation(numb)
     print(calcu, new_unit[2],)
-    print(scinonum[0],"x 10 ^",(scinonum[1] + (newdefault_unit - newnew_unit)))
+    print(scinonum[0], "x 10 ^",
+          (scinonum[1] + (newdefault_unit - newnew_unit)))
 else:
     print("Invalid unit selected.")
