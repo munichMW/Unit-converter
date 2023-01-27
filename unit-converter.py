@@ -80,9 +80,8 @@ newnew_unit = units.get(new_unit[0], None)
 if newdefault_unit is not None and newnew_unit is not None:
     calcu = numb * math.pow(10,(newdefault_unit - newnew_unit))
     scinonum = sci_notation(numb)
-    if newdefault_unit > newnew_unit:
-        calcu = numb / math.pow(10,(newnew_unit - newdefault_unit))
     print(calcu, new_unit[2],)
     print(scinonum[0],"x 10 ^",(scinonum[1] + (newdefault_unit - newnew_unit)))
 else:
     print("Invalid unit selected.")
+    
