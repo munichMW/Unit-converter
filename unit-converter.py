@@ -4,7 +4,6 @@ units = {
     # base unit
     "meter": 0,
     "gram": 0,
-    "ton": 0,
     "second": 0,
     "ampere": 0,
     "watt": 0,
