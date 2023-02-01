@@ -202,6 +202,16 @@ def checker():
         break
     return ck, c[2]
 
+def runcode():
+    p = checker()
+    print(p[0], p[1])
+    
+    response = input("Press y if you want to repeat the program")
+    if response.lower() == 'y':
+        return True
+    else:
+        return False
 
-p = checker()
-print(p[0], p[1])
+while True:
+    if not runcode():
+        break
