@@ -1,4 +1,5 @@
 import math
+from decimal import Decimal
 
 prefix = {
     "quetta": 30,
@@ -36,10 +37,10 @@ conversion = {
 
     "length": {
         "meter": 1,
-        "mile": 0.00062137,
-        "inch": 39.3700787,
-        "foot": 3.2808399,
-        "yard": 1.0936133,
+        "mile": 1 / 1609.344,
+        "inch": (1 / 0.9144) / (1/36),
+        "foot": (1 / 0.9144) / (1/3),
+        "yard": 1 / 0.9144,
         "AU": 1 / 149597870691,
         "ly": 1 / 9460730777119564,
         "pc": 1 / 30856775814671900,
@@ -54,9 +55,9 @@ conversion = {
 
     "mass": {
         "gram": 1000,
-        "pound": 2.20462262,
-        "ounce": 35.27396195,
-        "stone": 0.157473,
+        "pound": (1 / 0.45359237),
+        "ounce": 16 * (1 / 0.45359237),
+        "stone": (16 * (1 / 0.45359237)) / 14,
         "carat": 5000,
         "amu": (1000 / (1.66053886 * (10 ** -24))),
         "newton": (1 / 101.9716212978) * 1000
@@ -95,18 +96,18 @@ conversion = {
 
     "area": {
         "square meter": 1,
-        "square mile": 0.00062137,
-        "square inch": 39.3700787,
-        "square foot": 3.2808399,
-        "square yard": 1.0936133,
+        "square mile": 1 / 1609.344,
+        "square inch": (1 / 0.9144) / (1/36),
+        "square foot": (1 / 0.9144) / (1/3),
+        "square yard": 1 / 0.9144,
     },
 
     "volume": {
         "cubic meter": 1,
-        "cubic mile": 0.00062137,
-        "cubic inch": 39.3700787,
-        "cubic foot": 3.2808399,
-        "cubic yard": 1.0936133,
+        "cubic mile": (1 / 0.9144) / (1/36),
+        "cubic inch": (1 / 0.9144) / (1/36),
+        "cubic foot": (1 / 0.9144) / (1/3),
+        "cubic yard": 1 / 0.9144,
     },
 
 
@@ -125,36 +126,36 @@ def checki(prompt):
 def convert_unit(value, from_unit_pre, to_unit_pre, from_unit, to_unit):
     fpre = prefix.get(from_unit_pre)
     if fpre is None:
-        fpre = 0
+        fpre = Decimal(str(0))
 
     tpre = prefix.get(to_unit_pre)
     if tpre is None:
-        tpre = 0
+        tpre = Decimal(str(0))
 
     for category in conversion:
         if from_unit in conversion[category] and to_unit in conversion[category]:
-            return value * ((conversion[category][to_unit] * 10 ** float(fpre)) / (conversion[category][from_unit] * 10 ** float(tpre)))
+            return value * ((Decimal(str(float(conversion[category][to_unit]))) * Decimal(str(10)) ** Decimal(str(float(fpre)))) / (Decimal(str(float(conversion[category][from_unit]))) * Decimal(str(10)) ** Decimal(str(float(tpre)))))
     return "incorrect"
 
 
 def convert_area(value, from_unit_pre, to_unit_pre, from_unit, to_unit, dimen):
     fpre = prefix.get(from_unit_pre)
     if fpre is None:
-        fpre = 0
+        fpre = Decimal(str(0))
 
     tpre = prefix.get(to_unit_pre)
     if tpre is None:
-        tpre = 0
+        tpre = Decimal(str(0))
 
     for category in conversion:
         if from_unit in conversion[category] and to_unit in conversion[category]:
-            return value * math.pow(((conversion[category][to_unit] * 10 ** float(fpre)) / (conversion[category][from_unit] * 10 ** float(tpre))), dimen)
+            return value * Decimal(str(float(math.pow(((Decimal(str(float(conversion[category][to_unit]))) * Decimal(str(10)) ** Decimal(str(float(fpre))) / (Decimal(str(float(conversion[category][from_unit]))) * Decimal(str(10)) ** Decimal(str(float(tpre)))))), Decimal(str(float(dimen)))))))
     return "incorrect"
 
 def check_float(number):
     while True:
         try:
-            value = float(input(number))
+            value = Decimal(str(float(input(number))))
         except ValueError:
             print("Only numbers can be used.")
             continue
