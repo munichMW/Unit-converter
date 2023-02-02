@@ -181,8 +181,8 @@ def checker():
             to_unit_pre = c[0]
             from_unit = b[1]
             to_unit = c[1]
-            u = get_category(b[2])
-
+            u = get_category(b[1])
+            
             if u == "None":
                 u = get_category(from_unit)
 
@@ -200,13 +200,13 @@ def checker():
             print("Incorrect unit")
             continue
         break
-    return ck, c[2]
+    return ck,c[2]
 
 def runcode():
     p = checker()
     print(p[0], p[1])
     
-    response = input("Press y if you want to repeat the program")
+    response = input("Press y if you want to repeat the program ")
     if response.lower() == 'y':
         return True
     else:
