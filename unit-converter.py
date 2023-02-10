@@ -1,4 +1,4 @@
-import math
+import math 
 from decimal import Decimal
 
 prefix = {
@@ -29,7 +29,7 @@ prefix = {
     "quecto": -30
 }
 
-
+# dict !!
 conversion = {
     "none_prefix": {
         "": 1
@@ -113,15 +113,13 @@ conversion = {
 
 }
 
-
-def checki(prompt):
+def checki(prompt): # แยกคำ [prefix,unit,prefix + unit] 0 - 1 - 2
     split_word = [prompt, prompt, prompt]
     for unit in prefix:
         if prompt.startswith(unit):
             split_word = [unit, prompt[len(unit):], prompt]
             break
     return split_word
-
 
 def convert_unit(value, from_unit_pre, to_unit_pre, from_unit, to_unit):
     fpre = prefix.get(from_unit_pre)
@@ -137,6 +135,7 @@ def convert_unit(value, from_unit_pre, to_unit_pre, from_unit, to_unit):
             return value * ((Decimal(str(float(conversion[category][to_unit]))) * Decimal(str(10)) ** Decimal(str(float(fpre)))) / (Decimal(str(float(conversion[category][from_unit]))) * Decimal(str(10)) ** Decimal(str(float(tpre)))))
     return "incorrect"
 
+#  return value * float(conversion[category][to_unit]) * 10 ** float(fpre) / float(conversion[category][from_unit]) * 10 ** float(tpre)
 
 def convert_area(value, from_unit_pre, to_unit_pre, from_unit, to_unit, dimen):
     fpre = prefix.get(from_unit_pre)
@@ -152,7 +151,7 @@ def convert_area(value, from_unit_pre, to_unit_pre, from_unit, to_unit, dimen):
             return value * Decimal(str(float(math.pow(((Decimal(str(float(conversion[category][to_unit]))) * Decimal(str(10)) ** Decimal(str(float(fpre))) / (Decimal(str(float(conversion[category][from_unit]))) * Decimal(str(10)) ** Decimal(str(float(tpre)))))), Decimal(str(float(dimen)))))))
     return "incorrect"
 
-def check_float(number):
+def check_float(number): # เช็คจำนวน
     while True:
         try:
             value = Decimal(str(float(input(number))))
@@ -163,14 +162,14 @@ def check_float(number):
     return value
 
 
-def get_category(unit):
+def get_category(unit): # เช็คประเภท
     for category, units in conversion.items():
         if unit in units:
             return category
     return None
 
 
-def checker():
+def checker():  # หลัก
     while True:
         try:
             a = check_float("value: ")
@@ -178,15 +177,21 @@ def checker():
             c = checki(input("to: "))
 
             value = a
-            from_unit_pre = b[0]
-            to_unit_pre = c[0]
-            from_unit = b[1]
-            to_unit = c[1]
-            u = get_category(b[1])
+            from_unit_pre = b[0]    # PREFIX 
+            to_unit_pre = c[0]      # PREFIX
+            from_unit = b[1]        # UNIT
+            to_unit = c[1]          # UNIT
+            u = get_category(b[1])  # ประเภทของ unit -> ระยะทาง มวล ...
+            
+            catefrom = str(get_category(from_unit))
+            cateto = str(get_category(to_unit))
+
+            if catefrom == "None" or cateto == "None":
+                print("Incorrect unit")
+                continue
             
             if u == "None":
                 u = get_category(from_unit)
-
             if (u == "length" or u == "mass" or u == "time" or u == "angle" or u == "data"):
                 ck = float(convert_unit(value, from_unit_pre,
                            to_unit_pre, from_unit, to_unit))
@@ -201,7 +206,7 @@ def checker():
             print("Incorrect unit")
             continue
         break
-    return ck,c[2]
+    return ck,c[2] # ค่าที่ได้,หน่วยเต็ม
 
 def runcode():
     p = checker()
